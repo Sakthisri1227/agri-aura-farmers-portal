@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearest Markets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Same styles as before */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .top-bar h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .top-bar button {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .top-bar button:hover {
+            background-color: #2e7d32;
+        }
+        .market-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0;
+            list-style-type: none;
+            margin: 0;
+        }
+        .market-list li {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .market-list li:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        .market-list h4 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .market-list p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .loading {
+            text-align: center;
+            font-size: 18px;
+            color: #2e7d32;
+            margin: 20px;
+        }
+        .error {
+            text-align: center;
+            font-size: 18px;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <h2>Nearest Markets for <span id="district-name"></span></h2>
+            <button onclick="window.location.href='index.html'">back to home</button>
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" class="loading">Loading markets...</div>
+
+        <!-- Error message -->
+        <div id="error-message" class="error" style="display: none;">No markets found for your district. Please try again later.</div>
+
+        <!-- List of markets will be displayed here -->
+        <ul class="market-list" id="market-list"></ul>
+    </div>
+
+    <script>
+        // Example data of markets based on districts
+        const marketsData = {
+            "Karur": [
+                { name: "Ghandhigramam", location: "Ghandhigramam", marketId: "Ghandhigramam" },
+                { name: "Karur", location: "Karur", marketId: "Karur" }
+            ],
+            "Namakkal": [
+                { name: "Mohanur", location: "Mohanur", marketId: "Mohanur" },
+                { name: "Namakkal", location: "Namakkal", marketId: "Namakkal" }
+            ],
+            "Dindigul": [
+                { name: "Palani", location: "Palani", marketId: "Palani" },
+                { name: "Kodaikkanal", location: "Kodaikkanal", marketId: "Kodaikkanal" }
+            ],
+            "Chennai": [
+                { name: "ambathur", location: "ambathur", marketId: "ambathur" },
+                { name: "anna nagar", location: "anna nagar", marketId: "anna nagar" }
+            ],
+            "Trichy": [
+                { name: "Musiri", location: "Musiri", marketId: "Musiri" },
+                { name: "Lalgudi", location: "", marketId: "Lalgudi" }
+            ],
+            "Tiruvarur": [
+                { name: "Tiruthuraipoondi	", location: "Tiruthuraipoondi	", marketId: "Tiruthuraipoondi	" },
+                { name: "Mannargudi", location: "Mannargudi", marketId: "Mannargudi" }
+            ],
+            "Tiruppur": [
+                { name: "Udumalpet", location: "Udumalpet", marketId: "Udumalpet" },
+                { name: "Palladam", location: "Palladam", marketId: "Palladam" }
+            ],
+            "Coimbatore": [
+                { name: "Sundarapuram", location: "Sundarapuram", marketId: "Sundarapuram" },
+                { name: "Singanallur", location: "Singanallur", marketId: "Singanallur" }
+            ]
+
+        };
+
+        // Function to fetch and display nearest markets
+        function displayMarkets(district) {
+            const marketList = document.getElementById("market-list");
+            const districtName = document.getElementById("district-name");
+            const loading = document.getElementById("loading");
+            const errorMessage = document.getElementById("error-message");
+
+            loading.style.display = "none";
+            errorMessage.style.display = "none";
+            marketList.innerHTML = ""; // Clear previous content
+            
+            districtName.textContent = district;
+
+            if (marketsData[district]) {
+                marketsData[district].forEach(market => {
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `
+                        <a href="demand-products.html?market=${market.marketId}" style="text-decoration: none; color: inherit;">
+                            <h4>${market.name}</h4>
+                            <p>Location: ${market.location}</p>
+                            <p>Rate: ${market.rate}</p>
+                        </a>
+                    `;
+                    marketList.appendChild(listItem);
+                });
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const district = urlParams.get('district'); 
+            if (district) {
+                displayMarkets(district);
+            } else {
+                alert("District is required!");
+            }
+        };
+    </script>
+</body>
+</html>

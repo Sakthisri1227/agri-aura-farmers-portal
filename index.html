@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Aura</title>
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Background Image */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/MCJpDcd/img2.jpg'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        /* Header Section */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Keep items vertically aligned */
+            padding: 0.5rem 1rem; /* Adjust padding for better spacing */
+            background-color: #2e7d32;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .logo img {
+            width: 120px;
+            height: 100px;
+        }
+
+        .website-title {
+            font-size: 2rem;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); /* Center the title */
+            margin: 0;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #ffffff;
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #2e7d32;
+            font-weight: 500;
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar a i {
+            margin-right: 8px;
+        }
+
+        .navbar a:hover {
+            background-color: #dcedc8;
+            color: #1b5e20;
+        }
+
+        /* Dropdown List */
+        .dropdown {
+            display: none; /* Initially hidden */
+            visibility: hidden; /* Ensures it doesn't show up at all */
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .dropdown li {
+            list-style: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown li:hover {
+            background-color: #dcedc8;
+            color: #2e7d32;
+        }
+
+        .dropdown li:last-child {
+            border-bottom: none;
+        }
+        
+         /* Search Bar */
+        .search-bar {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .search-bar input[type="search"] {
+            width: 350px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #2e7d32;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #1b5e20;
+        }
+
+         /* Card Section */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            animation: fadeIn 2s ease;
+        }
+
+        .card h5 {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+       /* Animation for View Districts Button */
+.card a {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    animation: moveButton 5s infinite linear; /* Apply the animation */
+}
+
+/* Hover Effect */
+.card a:hover {
+    background-color: #218838;
+}
+
+/* Keyframes for the moveButton Animation */
+@keyframes moveButton {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(10px); /* Move right */
+    }
+    50% {
+        transform: translateX(0); /* Reset position */
+    }
+    75% {
+        transform: translateX(-10px); /* Move left */
+    }
+    100% {
+        transform: translateX(0); /* Reset position */
+    }
+}
+
+
+
+        /* Footer */
+        .footer {
+            background-color: #2e7d32;
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .footer h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+        }
+
+        .footer .social-icons a {
+            margin: 0 10px;
+            color: #fff;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer .social-icons a:hover {
+            color: #dcedc8;
+        }
+
+        /* Language Button */
+        .language-button {
+            background-color: #029a2d;
+            color: #ffffff;
+            border: 1px solid rgb(0, 0, 0);
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .language-button:hover {
+            background-color: hsla(140, 84%, 42%, 0.655);
+        }
+
+        /* Language Dropdown */
+        .language-dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1;
+}
+
+        .language-dropdown ul {
+            list-style-type: none;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .language-dropdown li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .language-dropdown li:hover {
+            background-color: #f1f1f1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="website-title">Agri Aura</div>
+            <div class="logo">
+                <img src="https://i.ibb.co/nCDTKbX/LOGO.png" alt="Agri Aura Logo">
+            </div>
+        </div>
+
+        <!-- Navbar Section -->
+        <nav>
+            <div class="navbar">
+                <ul>
+                    <li>
+                        <a href="#"><i class="fas fa-home"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-crop"></i>Products</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-store-alt"></i>Market</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-phone-alt"></i>Contact</a>
+                    </li>
+                    <li>
+                        <button class="language-button" onclick="toggleLanguageDropdown()"><i class="fas fa-language"></i>Language</button>
+                        <ul id="languageDropdown" class="language-dropdown">
+                            <li onclick="changeLanguage('English')">English</li>
+                            <li onclick="changeLanguage('Hindi')">Hindi</li>
+                            <li onclick="changeLanguage('Spanish')">Spanish</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-bar">
+        <input type="search" placeholder="Search for products..." aria-label="Search">
+        <button>Search</button>
+    </section>
+    
+     <!-- Card Section -->
+    <div class="card-container">
+        <div class="card">
+            <h5>Welcome to Agri Aura!</h5>
+            <p>Partner with us and discover a world of opportunities. Join us today and let's grow together!</p>
+            <a href="register.html">Join with us</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h4>Agri Aura</h4>
+        <p>Fresh produce delivered to your doorstep across Tamil Nadu.</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/15gbagaCMM/"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/agriaura_official?igsh=aGUybGJtMjZoMmI3"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2024 Agri Aura. All rights reserved.</p>
+    </footer>
+
+    <script>
+       // Toggle dropdown lists on click
+        function toggleDropdown(id) {
+            var dropdown = document.getElementById(id);
+            // Toggle visibility
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                dropdown.style.visibility = 'hidden';
+            } else {
+                dropdown.style.display = 'block';
+                dropdown.style.visibility = 'visible';
+            }
+        }
+        document.querySelector('.search-bar button').addEventListener('click', function() {
+    var searchQuery = document.querySelector('.search-bar input[type="search"]').value;
+    if (searchQuery) {
+        window.location.href = `/search?query=${searchQuery}`;
+    }
+    document.addEventListener('click', function(event) {
+    var isClickInside = document.querySelector('.navbar').contains(event.target);
+    if (!isClickInside) {
+        var dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(function(dropdown) {
+            dropdown.style.display = 'none';
+            dropdown.style.visibility = 'hidden';
+        });
+    }
+});
+
+});
+      
+      // Toggle the language dropdown
+function toggleLanguageDropdown() {
+    var dropdown = document.getElementById("languageDropdown");
+    if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+    } else {
+        dropdown.style.display = "block";
+    }
+}
+
+window.onload = function () {
+    document.getElementById("languageDropdown").style.display = "none";
+};
+
+
+// Change the language (You can replace this with actual language-changing logic)
+function changeLanguage(language) {
+    alert("Language changed to: " + language);
+    // You can implement actual logic to change the page language here
+    var dropdown = document.getElementById("languageDropdown");
+    dropdown.style.display = "none"; // Close the dropdown after selecting a language
+}
+
+    </script>
+</body>
+</html>

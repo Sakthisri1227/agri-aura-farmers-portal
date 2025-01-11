@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notify Quantity</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-info img {
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-info div {
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+
+        .product-info p {
+            font-size: 16px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="number"], select, input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus, select:focus, input[type="text"]:focus {
+            border-color: #2e7d32;
+        }
+
+        button {
+            background-color: #2e7d32; /* Green color */
+            color: white;
+            padding: 8px 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            width: auto;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #e67e22; /* Darker Green */
+            transform: translateY(-2px);
+        }
+
+        .back-button button {
+            background-color: #2e7d32; /* Purple color */
+            color: white;
+            padding: 8px 18px;
+            border-radius: 25px;
+        }
+
+        .back-button button:hover {
+            background-color: #9b59b6; /* Darker Purple */
+            transform: translateY(-2px);
+        }
+
+        .back-button {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        .transport-request {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .transport-request h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .transport-request p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .transport-request form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .transport-request input,
+        .transport-request textarea {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .transport-request button {
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #2e7d32;
+            color: white;
+            text-align: center;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .transport-request button:hover {
+            background-color: #2e7d32;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .product-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .product-info img {
+                width: 100%;
+                max-width: 200px;
+                margin-bottom: 15px;
+            }
+
+            .product-info div {
+                padding-left: 0;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            input[type="number"], select {
+                font-size: 16px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productName = urlParams.get('product') || 'No product selected'; 
+            const productImage = urlParams.get('image') || 'default-image.jpg'; 
+            const productPrice = urlParams.get('price') || '0.00'; 
+
+            document.getElementById('selected-product').textContent = `You selected: ${productName}`;
+            document.getElementById('product-image').src = productImage;
+            document.getElementById('product-price').textContent = `Price: $${productPrice}`;
+        }
+
+        // Function to handle form submission for quantity notification
+        function submitNotification() {
+            const quantity = document.getElementById('quantity').value;
+            if (quantity && quantity > 0) {
+                alert(`Notification for ${quantity} kg has been submitted successfully!`);
+                // Add functionality to store/send this data
+            } else {
+                alert('Please enter a valid quantity');
+            }
+        }
+
+        // Function to handle transport request form submission
+        function submitTransportRequest(event) {
+            event.preventDefault(); // Prevent form from refreshing the page
+            const farmerName = document.getElementById('farmer-name').value;
+            const farmLocation = document.getElementById('farm-location').value;
+            const productDetails = document.getElementById('product-details').value;
+            const quantity = document.getElementById('quantity').value;
+            const preferredDate = document.getElementById('preferred-date').value;
+            const preferredTime = document.getElementById('preferred-time').value;
+           
+            if (farmerName && farmLocation && productDetails && quantity && preferredTime&&preferredDate) {
+                alert(`Transportation Request Submitted Successfully! \n\nDetails:\nName: ${farmerName}\nFarm Location: ${farmLocation}\nProduct Details: ${productDetails}\nQuantity: ${quantity} kg\nPreferred Delivery Date: ${preferredDate}\nPreferred Delivery Time: ${preferredTime}`);
+            } else {
+                alert('Please fill all the fields before submitting.');
+            }
+        }
+
+        // Function to go back to the product page
+        function goBackToProducts() {
+            window.location.href = 'products.html';  // Change 'products.html' to the actual URL of your products page
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Notify Quantity</h2>
+
+        <!-- Product Info Section -->
+        <div class="product-info">
+            <img id="product-image" src="default-image.jpg" alt="Product Image">
+            <div>
+                <h3 id="selected-product">No product selected</h3>
+                <p id="product-price">Price: $0.00</p>
+            </div>
+        </div>
+
+        <!-- Quantity Input and Submit -->
+        <label for="quantity">Enter Quantity (in kg)</label>
+        <input type="number" id="quantity" placeholder="Enter quantity" min="1">
+
+        <button onclick="submitNotification()">Submit Notification</button>
+
+        <!-- Transport Request Section -->
+        <div class="transport-request">
+            <h3>Request Transportation for Your Products</h3>
+            <p>If you need transport to deliver your products, please provide the following details:</p>
+            <form id="transport-request-form" onsubmit="submitTransportRequest(event)">
+                <input type="text" id="farmer-name" placeholder="Farmer's Name" required>
+                <input type="text" id="farm-location" placeholder="Farm Location" required>
+                <textarea id="product-details" placeholder="Product Details (e.g., type of produce)" required></textarea>
+                <input type="number" id="quantity" placeholder="Quantity (in kg)" required>
+                <label for="preferred-date">Preferred Delivery Date</label>
+                <input type="date" id="preferred-date" required>
+                <label for="preferred-time">Preferred Delivery Time</label>
+                <input type="time" id="preferred-time" required>
+                <button type="submit">Submit Transport Request</button>
+            </form>
+        </div>
+
+        <!-- Back Button -->
+        <div class="back-button">
+            <button onclick="goBackToProducts()">Back to Products</button>
+        </div>
+    </div>
+</body>
+</html>

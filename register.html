@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #37a53c, #0f5f13);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        /* Container */
+        .container {
+            background: #fff;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 480px;
+            transition: transform 0.3s ease;
+            border: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        .container:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Header */
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #37a53c;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        /* Input Fields */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group .icon-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .input-group i {
+            margin-right: 15px;
+            color: #002f68;
+            font-size: 18px;
+        }
+
+        label {
+            color: #37a53c;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            font-size: 16px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            background-color: #ffffff;
+            border: 1px solid #2e7d32;
+            outline: none;
+        }
+
+        /* Button */
+        button {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(45deg, #2e7d32, #37a53c);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #2e7d32, #37a53c);
+            box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #bdc3c7;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: #2e7d32;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Farmer Registration</h1>
+        <p class="subtitle">Join us in revolutionizing the agricultural market. Become part of the future today.</p>
+        <form action="market.html" method="GET">
+            <div class="input-group">
+                <div class="icon-label">
+                    <i class="fas fa-user"></i>
+                    <label for="name">Full Name</label>
+                </div>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="input-group">
+                <div class="icon-label">
+                    <i class="fas fa-phone-alt"></i>
+                    <label for="phone">Phone Number</label>
+                </div>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+            </div>
+            
+            <div class="input-group">
+                <div class="icon-label">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <label for="address">Address</label>
+                </div>
+                <input type="text" id="address" name="address" placeholder="Enter your address" required>
+            </div>
+            
+            <div class="input-group">
+                <div class="icon-label">
+                    <i class="fas fa-code-branch"></i>
+                    <label for="pincode">Pincode</label>
+                </div>
+                <input type="text" id="pincode" name="pincode" placeholder="Enter your pincode" pattern="[0-9]{6}" required>
+            </div>
+
+            <!-- District Dropdown -->
+            <div class="input-group">
+                <div class="icon-label">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <label for="district">District</label>
+                </div>
+                <select id="district" name="district" required>
+                    <option value="">Select District</option>
+                    <option value="Karur">Karur</option>
+                    <option value="Namakkal">Namakkal</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Trichy">Trichy</option>
+                    <option value="Dindigul">Dindigul</option>
+                    <option value="Tiruvarur">Tiruvarur</option>
+                    <option value="Tiruppur">Tiruppur</option>
+                    <option value="Coimbatore">Coimbatore</option>
+                    <!-- Add more districts as needed -->
+                </select>
+            </div>
+            
+            <button type="submit">Register Now</button>
+        </form>
+        <div class="footer">
+            By registering, you agree to our <a href="#">Terms and Conditions</a>.
+        </div>
+    </div>
+    <script>
+        function saveDistrict() {
+            const district = document.getElementById("district").value;
+            if (district) {
+                // Store district in localStorage
+                localStorage.setItem("district", district);
+                alert("District selected: " + district);
+                window.location.href = "market.html"; // Redirect to the market page
+            } else {
+                alert("Please select a district");
+            }
+        }
+    </script>
+
+</body>
+</html>

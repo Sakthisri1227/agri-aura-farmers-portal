@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spices - Available Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .top-bar h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .top-bar button {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .top-bar button:hover {
+            background-color: #2e7d32;
+        }
+
+        #product-categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .product-category {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-category:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-category h3 {
+            margin-top: 0;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .product-category img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product-category .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .product-category button {
+            background-color: #2e7d32;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-category button:hover {
+            background-color: #2e7d32;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .top-bar h2 {
+                font-size: 24px;
+            }
+
+            #product-categories {
+                grid-template-columns: 1fr 1fr; /* 2 columns on smaller screens */
+                gap: 15px;
+            }
+
+            .product-category {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <h2>Spices</h2>
+            <a href="products.html"><button>Back to Available Products</button></a>
+        </div>
+
+        <div id="product-categories">
+            <!-- Spices Products with Prices and Notify Button -->
+            <div class="product-category">
+                <img src="https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" alt="Cardamom">
+                <h3>Cardamom</h3>
+                <div class="price">$4.00 / kg</div>
+                <button onclick="notify('Cardamom', 'https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg', 4.00)">Notify</button>
+            </div>
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/z8W2vYX/3d5fdf56da595ed7f8ed10977d932cb1.jpg" alt="Coriander seeds">
+                <h3>Coriander seeds</h3>
+                <div class="price">$3.50 / kg</div>
+                <button onclick="notify('Coriander seeds', 'https://i.ibb.co/z8W2vYX/3d5fdf56da595ed7f8ed10977d932cb1.jpg', 3.50)">Notify</button>
+            </div>
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/m8mXY2c/75c6d2ef440eb77ca742e4c57bd05a62.jpg" alt="Star anise">
+                <h3>Star anise</h3>
+                <div class="price">$8.00 / kg</div>
+                <button onclick="notify('Star anise', 'https://i.ibb.co/m8mXY2c/75c6d2ef440eb77ca742e4c57bd05a62.jpg', 8.00)">Notify</button>
+            </div>
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" alt="Cloves">
+                <h3>Cloves</h3>
+                <div class="price">$7.50 / kg</div>
+                <button onclick="notify('Cloves', 'https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg', 7.50)">Notify</button>
+            </div>
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" alt="Cinamon">
+                <h3>Cinamon</h3>
+                <div class="price">$6.00 / kg</div>
+                <button onclick="notify('Cinamon', 'https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg', 6.00)">Notify</button>
+            </div>
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/QYncvRD/04a0095edcd8a5968538c1ead388d727.jpg" alt="Fennel seeds">
+                <h3>Fennel seeds</h3>
+                <div class="price">$2.50 / kg</div>
+                <button onclick="notify('Fennel seeds', 'https://i.ibb.co/QYncvRD/04a0095edcd8a5968538c1ead388d727.jpg', 2.50)">Notify</button>
+            </div>
+            
+            <div class="product-category">
+                <img src="https://i.ibb.co/6tQGkBW/ce0b3792a3a3ad3fc8bada62bb422264.jpg" alt="Red chilli">
+                <h3>Red chilli</h3>
+                <div class="price">$2.50 / kg</div>
+                <button onclick="notify('Red chilli','https://i.ibb.co/6tQGkBWW/ce0b3792aQGkB3a3ad3fc8bada62bb422264.jpg', 2.50)">Notify</button>
+            </div>
+            
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/DGMXVvZ/0231b3450bbceb7c3f04469068c06ce1.jpg" alt="Bay leaf">
+                <h3>Bay leaf</h3>
+                <div class="price">$2.50 / kg</div>
+                <button onclick="notify('Bay leaf', 'https://i.ibb.co/DGMXVvZ/0231b3450bbceb7c3f04469068c06ce1.jpg', 2.50)">Notify</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function notify(productName, productImage, productPrice) {
+            const url = `notify.html?product=${encodeURIComponent(productName)}&image=${encodeURIComponent(productImage)}&price=${encodeURIComponent(productPrice)}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

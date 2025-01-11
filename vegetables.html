@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegetables - Available Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .top-bar h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .top-bar button {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .top-bar button:hover {
+            background-color: #2e7d32;
+        }
+
+        #product-categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .product-category {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-category:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-category h3 {
+            margin-top: 0;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .product-category img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product-category .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .product-category button {
+            background-color: #2e7d32;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-category button:hover {
+            background-color: #2e7d32;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .top-bar h2 {
+                font-size: 24px;
+            }
+
+            #product-categories {
+                grid-template-columns: 1fr 1fr; /* 2 columns on smaller screens */
+                gap: 15px;
+            }
+
+            .product-category {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <h2>Vegetables</h2>
+            <a href="products.html"><button>Back to Available Products</button></a>
+        </div>
+
+        <div id="product-categories">
+            <!-- Vegetable Products with Prices and Notify Button -->
+            <div class="product-category">
+                <img src="https://i.ibb.co/R7ChKjZ/carrot.jpg" alt="Carrot">
+                <h3>Carrot</h3>
+                <div class="price">$1.99 / kg</div>
+                <button onclick="notify('Carrot', 'https://i.ibb.co/R7ChKjZ/carrot.jpg', 1.99)">Notify</button>
+            </div>
+
+            <div class="product-category">
+              <img src="https://i.ibb.co/BTjKfSs/707cb32e811b757407aca7e154dd8b7.jpg" alt="Tomato">
+                <h3>Tomato</h3>
+                <div class="price">$2.50 / kg</div>
+                <button onclick="notify('Tomato', 'https://i.ibb.co/BTjKfSs/707cb32e811b757407aca7e154dd8b7.jpg', 2.50)">Notify</button>
+            </div>
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" alt="Potato">
+                <h3>Potato</h3>
+                <div class="price">$3.00 / kg</div>
+                <button onclick="notify('Potato', 'https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg', 3.00)">Notify</button>
+            </div>
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" alt="Onion">
+                <h3>Onion</h3>
+                <div class="price">$2.80 / kg</div>
+                <button onclick="notify('Onion', 'https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg', 2.80)">Notify</button>
+            </div>
+
+            <div class="product-category">
+                <img src="https://i.ibb.co/JvSCM4j/Beans.jpg" alt="Beans">
+                <h3>Beans</h3>
+                <div class="price">$1.20 / kg</div>
+                <button onclick="notify('Beans', 'https://i.ibb.co/JvSCM4j/Beans.jpg', 1.20)">Notify</button>
+            </div>
+
+           <div class="product-category">
+                <img src="https://i.ibb.co/z6K00wb/beetroot.jpg" alt="Beetroot">
+                <h3>Beetroot</h3>
+                <div class="price">$2.00 / kg</div>
+                <button onclick="notify('Beetroot', 'https://i.ibb.co/z6K00wb/beetroot.jpg', 2.00)">Notify</button>
+            </div> 
+            
+            <div class="product-category">
+                <img src="https://i.ibb.co/9HVj7hh/brinjal.jpg" alt="Brinjal">
+                <h3>Brinjal</h3>
+                <div class="price">$2.00 / kg</div>
+                <button onclick="notify('Brinjal', 'https://i.ibb.co/9HVj7hh/brinjal.jpg', 2.00)">Notify</button>
+            </div> 
+            
+        </div>
+    </div>
+
+    <script>
+        function notify(productName, productImage, productPrice) {
+            const url = `notify.html?product=${encodeURIComponent(productName)}&image=${encodeURIComponent(productImage)}&price=${encodeURIComponent(productPrice)}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

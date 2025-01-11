@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demand Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .top-bar h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .product-section {
+            margin-bottom: 40px;
+        }
+
+        .product-section h3 {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .product-list li {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-list li:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-list img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-list h4 {
+            margin: 10px 0;
+            font-size: 22px;
+            color: #2e7d32;
+        }
+
+        .product-list p {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #2e7d32;
+            color: white;
+            text-align: center;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <h2>Demand Products for <span id="market-name"></span></h2>
+        </div>
+
+        <!-- Section for each product category -->
+        <div id="vegetables" class="product-section">
+            <h3>Vegetables</h3>
+        </div>
+        <div id="fruits" class="product-section">
+            <h3>Fruits</h3>
+        </div>
+        <div id="grains" class="product-section">
+            <h3>Grains</h3>
+        </div>
+        <div id="greens" class="product-section">
+            <h3>Greens</h3>
+        </div>
+        <div id="spices" class="product-section">
+            <h3>Spices</h3>
+        </div>
+
+        <!-- View Products Button -->
+        <a href="#" id="view-products-btn" class="btn">View Products at This Market</a>
+    </div>
+
+    <script>
+        const demandProductsData = {
+            "Ghandhigramam": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Karur": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Mohanur": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Namakkal": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Palani": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Kodaikkanal": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "ambathur": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "anna nagar": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Musiri": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Lalgudi": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Tiruthuraipoondi": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Mannargudi": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Udumalpet": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Palladam": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Sundarapuram": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+            "Singanallur": {
+                vegetables: [
+                    { product: "Tomatoes", quantity: "50 kg", rate: "55/kg", image: "https://i.ibb.co/BTjKfSs/707cb322e811b757407aca7e154dd8b7.jpg" },
+                    { product: "Potato", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/LPMcFkk/135920a3d52a64ec51b5d0de9bf8bf8c.jpg" },
+                    { product: "Onions", quantity: "30 kg", rate: "40/kg", image: "https://i.ibb.co/74QcVWD/c1f241d44b6e38c9a2a9df7dec8666a7.jpg" },
+                ],
+                fruits: [
+                    { product: "Apples", quantity: "100 kg", rate: "80/kg", image: "https://i.ibb.co/WNrkkR6/49f8aa47e301749886b1ffd107323d85.jpg" },
+                    { product: "Bananas", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/DMwjZWN/59a9efe8a630f06ddce2ad4ef9bf3750.jpg" },
+                    { product: "Guava", quantity: "60 kg", rate: "30/kg", image: "https://i.ibb.co/YRRcT61/03e6c12090bbe0c9d421b6de421567ed.jpg" }
+                ],
+                grains: [
+                    { product: "Rice", quantity: "200 kg", rate: "40/kg", image: "https://i.ibb.co/3hHyKCb/32ec746045bd82a67613558d01316e0e.jpg" },
+                    { product: "Wheat", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/5YXJzDx/50ec9b33f5f74d877be8512c9882c5ef.jpg" },
+                    { product: "Channa", quantity: "150 kg", rate: "35/kg", image: "https://i.ibb.co/DQTXVch/c1d3302f410244e027eabca5cbff739c.jpg" }
+                ],
+                greens: [
+                    { product: "Spinach", quantity: "20 kg", rate: "35/kg", image: "https://i.ibb.co/PFn5mQF/spinach.jpg" },
+                    { product: "Mint", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/zSnGH2Q/mint.jpg" },
+                    { product: "Curry Leaves", quantity: "15 kg", rate: "50/kg", image: "https://i.ibb.co/y5mh5bx/curry-leaves.jpg" }
+                ],
+                spices: [
+                    { product: "Cardamom", quantity: "30 kg", rate: "100/kg", image: "https://i.ibb.co/vPF4L00/088eb5d5c5ad1eb1826a2515a506cd1c.jpg" },
+                    { product: "Cloves", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/3FktPd5/36b73648d74af0569cc6c92be5461282.jpg" },
+                    { product: "Cinnamon", quantity: "25 kg", rate: "70/kg", image: "https://i.ibb.co/DLw834K/b2f685b08863af760bef715d860b551c.jpg" }
+                ]
+            },
+        };
+
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const marketId = urlParams.get('market');
+            const marketName = document.getElementById("market-name");
+            const viewProductsBtn = document.getElementById("view-products-btn");
+
+            if (demandProductsData[marketId]) {
+                marketName.textContent = marketId;
+
+                function renderProducts(category, data) {
+                    const section = document.getElementById(category);
+                    const productList = document.createElement("ul");
+                    productList.classList.add("product-list");
+
+                    data.forEach(item => {
+                        const listItem = document.createElement("li");
+                        listItem.innerHTML = `
+                            <img src="${item.image}" alt="${item.product}">
+                            <h4>${item.product}</h4>
+                            <p>Quantity: ${item.quantity}</p>
+                            <p>Rate: ${item.rate}</p>
+                        `;
+                        productList.appendChild(listItem);
+                    });
+
+                    section.appendChild(productList);
+                }
+
+                renderProducts("vegetables", demandProductsData[marketId].vegetables);
+                renderProducts("fruits", demandProductsData[marketId].fruits);
+                renderProducts("grains", demandProductsData[marketId].grains);
+                renderProducts("greens", demandProductsData[marketId].greens);
+                renderProducts("spices", demandProductsData[marketId].spices);
+
+                viewProductsBtn.href = `products.html?market=${marketId}`;
+            } else {
+                alert("No demand products found for this market.");
+            }
+        };
+    </script>
+</body>
+</html>
